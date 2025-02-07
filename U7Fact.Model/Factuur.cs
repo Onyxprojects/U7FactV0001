@@ -2,21 +2,13 @@
 
 namespace U7Fact.Model;
 
-public class Offerte
+public class Factuur
+
+    // Aangemaakt door Jeroen
 {
-    // Code Tom
     public int Id { get; set; }
     [Required(ErrorMessage = "Beschrijving is een verplicht veld")]
     public required string Beschrijving { get; set; }
-    // Aangemaakt door Jeroen
-    public DateTime OfferteDatum { get; set; } // datum van aanmaak
-    public DateTime? VerzendDatum { get; set; } // datum waarop de offerte verzonden is
-    public int? Geldigheidsduur { get; set; } // in dagen
-    public string? Verzendmetode { get; set; } // bv. e-mail, post, ...
-    public string? Referentie { get; set; }
-
-
-    // Code Tom (navigation properties)
     public int? BedrijfsKlantId { get; set; }
     public BedrijfsKlant? BedrijfsKlant { get; set; }
     public int? ParticuliereKlantId { get; set; }
