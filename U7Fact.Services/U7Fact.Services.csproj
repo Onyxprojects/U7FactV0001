@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\U7Fact.Data\U7Fact.Data.csproj" />
+      <ProjectReference Include="..\U7Fact.Model\U7Fact.Model.csproj" />
+      <ProjectReference Include="..\U7Fact.Services.Contracts\U7Fact.Services.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,45 @@
+﻿@page "/KlantenOverzicht"
+@using U7Fact.Model
+@using BlazorBootstrap
+@using U7Fact.Services.Contracts
+@inject IParticuliereKlantService ParticuliereKlantService;
+@inject NavigationManager Navigation
+<h3>KlantenOverzicht</h3>
+
+<h2>Particuliere klanten</h2>
+<table>
+    <thead>
+    <tr>
+        <td>Aanspreking</td>
+        <td>Voornaam</td>
+        <td>Achternaam</td>
+        <td>Acties</td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var klant in ParticuliereKlanten)
+    {
+        <tr>
+            <td>@klant.Aanspreking</td>
+            <td>@klant.Voornaam</td>
+            <td>@klant.Achternaam</td>
+            <td><Button Color="ButtonColor.Light" @onclick="@(() => ParticuliereKlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<ParticuliereKlant> ParticuliereKlanten { get; set; } = new();
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        ParticuliereKlanten = await ParticuliereKlantService.GetAsync();
+    }
+
+    private void ParticuliereKlantAanpassen(int id)
+    {
+        Navigation.NavigateTo($"ParticuliereKlantAanpassen/{id}");
+    }
+}
