@@ -19,9 +19,19 @@ public class ParticuliereKlantService: IParticuliereKlantService
         return _context.ParticuliereKlanten.ToListAsync();
     }
 
+    // Oude methode voor het ophalen van een klant
+    //public Task<ParticuliereKlant?> GetAsync(int id)
+    //{
+    //    return _context.ParticuliereKlanten.FirstOrDefaultAsync(x => x.Id == id);
+    //}
+
+    // Nieuwe methode voor het ophalen van een klant met inladen van offertes
     public Task<ParticuliereKlant?> GetAsync(int id)
     {
-        return _context.ParticuliereKlanten.FirstOrDefaultAsync(x => x.Id == id);
+        // Offertes worden hier mee ingeladen (IS DIT EEN GOED IDEE OF MOET HIER EEN ANDERE SERVICE VOOR WORDEN GEBRUIKT?)
+        return _context.ParticuliereKlanten
+            .Include(x => x.Offertes)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task AddAsync(ParticuliereKlant particuliereKlant)
@@ -35,5 +45,16 @@ public class ParticuliereKlantService: IParticuliereKlantService
         var dbKlant = await _context.ParticuliereKlanten.FirstAsync(x => x.Id == particuliereKlant.Id);
         _context.Entry(dbKlant).CurrentValues.SetValues(particuliereKlant);
         await _context.SaveChangesAsync();
+    }
+
+    // Toevoegen van delete methode
+    public async Task DeleteAsync(int id)
+    {
+        var klant = await _context.ParticuliereKlanten.FirstOrDefaultAsync(x => x.Id == id);
+        if (klant != null)
+        {
+            _context.ParticuliereKlanten.Remove(klant);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -16,9 +16,6 @@ public class BedrijfsKlant : Relatie
     public string? KboNummer { get; set; }
     public string? Achtervoegsel { get; set; } // bv. BV, NV, VOF, ...
 
-
-
-
     // Bestaand veld na bezoek Tom
     public int BtwTariefId { get; set; }
     public ICollection<Offerte> Offertes { get; set; }
