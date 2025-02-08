@@ -33,4 +33,9 @@ public class ParticuliereKlantHttpService: IParticuliereKlantService
     {
         return _httpClient.PutAsJsonAsync("/api/ParticuliereKlanten", particuliereKlant);
     }
+    // Toevoegen van delete methode
+    public Task DeleteAsync(int id)
+    {
+        return _httpClient.DeleteAsync($"/api/ParticuliereKlanten/{id}");
+    }
 }

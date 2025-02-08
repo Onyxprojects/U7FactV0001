@@ -8,13 +8,14 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\U7Fact.Services\U7Fact.Services.csproj" />
-        <ProjectReference Include="..\U7Fact.UI.Client\U7Fact.UI.Client.csproj"/>
+        <ProjectReference Include="..\U7Fact.UI.Client\U7Fact.UI.Client.csproj" />
         <PackageReference Include="Blazor.Bootstrap" Version="3.3.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="wwwroot\lib\" />
+      <Folder Include="wwwroot\img\" />
     </ItemGroup>
 
 </Project>

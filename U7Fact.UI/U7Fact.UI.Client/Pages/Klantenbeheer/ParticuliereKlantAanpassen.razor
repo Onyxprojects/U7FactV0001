@@ -1,4 +1,4 @@
-﻿@page "/ParticuliereKlantAanpassen/{Id:int}"
+﻿@page "/particuliereklantaanpassen/{Id:int}"
 @using U7Fact.Model
 @using BlazorBootstrap
 @using U7Fact.Services.Contracts
@@ -81,11 +81,11 @@
     private async Task Opslaan()
     {
         await ParticuliereKlantService.UpdateAsync(Klant);
-        Navigation.NavigateTo("/KlantenOverzicht");
+        Navigation.NavigateTo("/KlantenBeheer/KlantenOverzicht");
     }
 
     private void Annuleer()
     {
-        Navigation.NavigateTo("/KlantenOverzicht");
+        Navigation.NavigateTo("/KlantenBeheer/KlantenOverzicht");
     }
 }
