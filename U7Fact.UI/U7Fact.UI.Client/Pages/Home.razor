@@ -1,16 +1,19 @@
 ﻿@page "/"
 
+@using U7Fact.Model
+@using BlazorBootstrap
+@using U7Fact.Services.Contracts
+@inject IParticuliereKlantService ParticuliereKlantService
+@inject NavigationManager Navigation
+
+
 <PageTitle>U7Fact - Web App (.NET 9) - Offerte- en factucturatie</PageTitle>
 
 
 <!-- Hoofding groot met lijn onderaan -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 	<h1 class="h2">Klant aanmaken</h1>
-	<div class="btn-toolbar mb-2 mb-md-0">
-		@* <div class="btn-group me-2">
-			<button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-			<button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-		</div> *@
+	<div class="btn-toolbar mb-2 mb-md-0">		
 		<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">			
 			PK10001
 		</button>
@@ -18,6 +21,9 @@
 </div>
 
 <!-- Tabbladen klant aanmaken -->
+<EditForm Model="Klant" OnValidSubmit="Opslaan">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 <Tabs EnableFadeEffect="true">
 	<Tab Active="true">
 		<TitleTemplate>
@@ -41,7 +47,7 @@
 								<h7>Klantnummer</h7>
 							</div>
 							<div class="col-7 align-content-center">
-								<TextInput @bind-Value="@klantnummer" Disabled />
+								<TextInput @bind-Value="@Klant.Klantnummer"/>
 							</div>
 						</div>
 						<!--Contactpersoon-->
@@ -50,21 +56,32 @@
 								<h7>Contactpersoon</h7>
 							</div>
 							<div class="col-2 align-content-center">
-								<InputSelect id="aanspreking" class="form-select" @bind-Value="@aanspreking">
-									<option value="Dhr.">Dhr.</option>
-									<option value="Mevr.">Mevr.</option>
-									<option value="Fam.">Fam.</option>
-									<option value="Afd..">Afd.</option>
+								<InputSelect id="aanspreking" class="form-select" @bind-Value="@Klant!.Aanspreking">
+										<option value="">
+											Selecteer ...
+										</option>
+										<option checked="@(Klant!.Aanspreking == "Dhr.")"
+												value="Dhr.">
+											Dhr.
+										</option>
+										<option checked="@(Klant!.Aanspreking == "Mevr.")"
+												value="Mevr.">
+											Mevr.
+										</option>
+										<option checked="@(Klant!.Aanspreking == "Jufr.")"
+												value="Jufr.">
+											Jufr.
+										</option>
 								</InputSelect>
-								@* <ValidationMessage For="() => NieuwePKlantModel.Aanspreking" /> *@
+									<ValidationMessage For="@(() => Klant.Aanspreking)" />
 							</div>
 							<div class="col-2 align-content-center">
-								<InputText id="voornaam" class="form-control" placeholder="Voornaam" @bind-Value="@voornaam" />
-								@* <ValidationMessage For="() => NieuwePKlantModel.Voornaam" /> *@
+								<InputText id="voornaam" class="form-control" placeholder="Voornaam" @bind-Value="@Klant.Voornaam" />
+									<ValidationMessage For="@(() => Klant.Voornaam)" />
 							</div>
 							<div class="col-3 align-content-center">
-								<InputText id="achternaam" class="form-control" placeholder="Achternaam" @bind-Value="@achternaam" />
-								@* <ValidationMessage For="() => NieuwePKlantModel.Achternaam" /> *@
+								<InputText id="achternaam" class="form-control" placeholder="Achternaam" @bind-Value="@Klant.Achternaam" />
+									<ValidationMessage For="@(() => Klant.Achternaam)" />
 							</div>
 						</div>
 						<!--Adres-->
@@ -73,10 +90,10 @@
 								<h7>Adres</h7>
 							</div>
 							<div class="col-5 align-content-center">
-								<InputText id="straatnaam" class="form-control" placeholder="Straatnaam" @bind-Value="@straatnaam" />
+								<InputText id="straatnaam" class="form-control" placeholder="Straatnaam" @bind-Value="@Klant.Straatnaam" />
 							</div>
 							<div class="col-2 align-content-center">
-								<InputText id="huisnummer" class="form-control" placeholder="Nr." @bind-Value="@huisnummer" />
+								<InputText id="huisnummer" class="form-control" placeholder="Nr." @bind-Value="@Klant.Huisnummer" />
 							</div>
 						</div>
 						<!--postcode en gemeente-->
@@ -85,10 +102,10 @@
 								<h7>Postcode en plaats</h7>
 							</div>
 							<div class="col-2 align-content-center">
-								<InputText id="postcode" class="form-control" placeholder="Postcode" @bind-Value="@postcode" />
+								<InputText id="postcode" class="form-control" placeholder="Postcode" @bind-Value="@Klant.Postcode" />
 							</div>
 							<div class="col-5 align-content-center">
-								<InputText id="gemeente" class="form-control" placeholder="Gemeente" @bind-Value="@gemeente" />
+								<InputText id="gemeente" class="form-control" placeholder="Gemeente" @bind-Value="@Klant.Gemeente" />
 							</div>
 						</div>
 						<!--Contactpersoon-->
@@ -97,9 +114,18 @@
 								<h7>Land</h7>
 							</div>
 							<div class="col-7 align-content-center">
-								<InputSelect id="land" class="form-select" @bind-Value="@land">
-									<option value="België">België</option>
-									<option value="Nederland">Nederland</option>
+								<InputSelect id="land" class="form-select" @bind-Value="@Klant.Land">
+										<option value="">
+											Selecteer ...
+										</option>
+										<option checked="@(Klant!.Land == "België")"
+												value="België.">
+											België
+										</option>
+										<option checked="@(Klant!.Land == "Nederland")"
+												value="Nederland">
+											Nederland
+										</option>
 								</InputSelect>
 							</div>
 						</div>
@@ -119,8 +145,8 @@
 								<h7>E-mailadres</h7>
 							</div>
 							<div class="col-7 align-content-center">
-								<InputText id="email" class="form-control" placeholder="Geef een geldig mailadres in." @bind-Value="@email" />
-								@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
+								<InputText id="email" class="form-control" placeholder="Geef een geldig mailadres in." @bind-Value="@Klant.Email" />
+									@* <ValidationMessage For="@(() => Klant.Email)" /> *@
 							</div>
 						</div>
 						<!--Telefoon 1-->
@@ -129,7 +155,7 @@
 								<h7>Telefoon</h7>
 							</div>
 							<div class="col-7 align-content-center">
-								<InputText id="telefoon" class="form-control" placeholder="Telefoonnummer" @bind-Value="@telefoonnummer" />
+								<InputText id="telefoon" class="form-control" placeholder="Telefoonnummer" @bind-Value="@Klant.Telefoonnummer" />
 							</div>
 						</div>
 						<!--Gsm-->
@@ -138,7 +164,7 @@
 								<h7>Gsmnummer</h7>
 							</div>
 							<div class="col-7 align-content-center">
-								<InputText id="gsm" class="form-control" placeholder="Gsm nummer" @bind-Value="@gsmnummer" />
+								<InputText id="gsm" class="form-control" placeholder="Gsm nummer" @bind-Value="@Klant.Gsmnummer" />
 							</div>
 						</div>
 
@@ -159,54 +185,124 @@
 					<div class="col-md-6">
 						<!--HOOFDING + TYPE-->
 						<div class="row mb-2">
+							@if (isVisible)
+							{
+								@* <div class="mb-5">
+									<div class="row mb-2">
+										<div class="col-8 align-content-center">
+											<h4>Standaard contactpersonen</h4>
+										</div>
+									</div>
+									<!--Facturen-->
+									<div class="row mb-1">
+										<div class="col-3 align-content-center">
+											<h7>Facturen</h7>
+										</div>
+										<div class="col-7 align-content-center">
+											<InputSelect id="Verzendinfo" class="form-select" @bind-Value="@land">
+												<option value="Standaard contact">Standaard contact</option>
+												<option value="Extra contact">Extra contact</option>
+												<option value="Beide">Beide</option>
+											</InputSelect>
+											
+										</div>
+									</div>
+									<div class="row mb-1">
+										<div class="col-3 align-content-center">
+											<h7>Offertes</h7>
+										</div>
+										<div class="col-7 align-content-center">
+											<InputSelect id="Verzendinfo" class="form-select" @bind-Value="@land">
+												<option value="Standaard contact">Standaard contact</option>
+												<option value="Extra contact">Extra contact</option>
+												<option value="Beide">Beide</option>
+											</InputSelect>
+											
+										</div>
+									</div>
+								</div> *@
+
+							}
 							<div class="col-8 align-content-center">
 								<h4>Extra contactpersonen</h4>
 							</div>
+							@if (isVisible)
+							{
+								<div class="row mb-2">
+									<div class="col-3 align-content-center">
+										<h7>Contactpersoon</h7>
+									</div>
+									<div class="col-2 align-content-center">
+										<InputSelect id="aanspreking" class="form-select" @bind-Value="@Klant.ExtraAanspreking">
+												<option value="">
+													Selecteer ...
+												</option>
+												<option checked="@(Klant!.Aanspreking == "Dhr.")"
+														value="Dhr.">
+													Dhr.
+												</option>
+												<option checked="@(Klant!.Aanspreking == "Mevr.")"
+														value="Mevr.">
+													Mevr.
+												</option>
+												<option checked="@(Klant!.Aanspreking == "Jufr.")"
+														value="Jufr.">
+													Jufr.
+												</option>
+										</InputSelect>
+											<ValidationMessage For="@(() => Klant.ExtraAanspreking)" />
+									</div>
+									<div class="col-2 align-content-center">
+										<InputText id="voornaam" class="form-control" placeholder="Voornaam" @bind-Value="@Klant.ExtraVoornaam" />
+										@* <ValidationMessage For="() => NieuwePKlantModel.Voornaam" /> *@
+									</div>
+									<div class="col-3 align-content-center">
+										<InputText id="achternaam" class="form-control" placeholder="Achternaam" @bind-Value="@Klant.ExtraAchternaam" />
+										@* <ValidationMessage For="() => NieuwePKlantModel.Achternaam" /> *@
+									</div>
+								</div>
+								<!-- Extra email -->
+								<div class="row mb-1">
+									<div class="col-3 align-content-center">
+										<h7>E-mailadres</h7>
+									</div>
+									<div class="col-7 align-content-center">
+										<InputText id="email" class="form-control" placeholder="Geef een geldig mailadres in." @bind-Value="@Klant.ExtraEmail" />
+										@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
+									</div>
+								</div>
+								<!-- Extra gsmnummer -->
+								<div class="row mb-1">
+									<div class="col-3 align-content-center">
+										<h7>Gsmnummer</h7>
+									</div>
+									<div class="col-7 align-content-center">
+										<InputText id="email" class="form-control" placeholder="Geef een geldig gsmnummer in." @bind-Value="@Klant.ExtraGsmnummer" />
+										@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
+									</div>
+								</div>
+								<!-- Extra telefoonnummer -->
+								<div class="row mb-1">
+									<div class="col-3 align-content-center">
+										<h7>Telefoonnummer</h7>
+									</div>
+									<div class="col-7 align-content-center">
+										<InputText id="email" class="form-control" placeholder="Geef een geldig telefoonnummer in." @bind-Value="@Klant.ExtraTelefoonnummer" />
+										@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
+									</div>
+								</div>
+							}
 						</div>
 						@if (!isVisible)
 						{
 							<p>Te gebruiken voor afwijkende facturatiegegevens en contactpersonen waar u een offerte/factuur naartoe wilt sturen.</p>
 						}
-						@if (isVisible)
+
+						@if (!isVisible)
 						{
-
-							<div class="row mb-2">
-								<div class="col-3 align-content-center">
-									<h7>Contactpersoon</h7>
-								</div>
-								<div class="col-2 align-content-center">
-									<InputSelect id="aanspreking" class="form-select" @bind-Value="@aanspreking">
-										<option value="Dhr.">Dhr.</option>
-										<option value="Mevr.">Mevr.</option>
-										<option value="Fam.">Fam.</option>
-										<option value="Afd..">Afd.</option>
-									</InputSelect>
-									@* <ValidationMessage For="() => NieuwePKlantModel.Aanspreking" /> *@
-								</div>
-								<div class="col-2 align-content-center">
-									<InputText id="voornaam" class="form-control" placeholder="Voornaam" @bind-Value="@voornaam" />
-									@* <ValidationMessage For="() => NieuwePKlantModel.Voornaam" /> *@
-								</div>
-								<div class="col-3 align-content-center">
-									<InputText id="achternaam" class="form-control" placeholder="Achternaam" @bind-Value="@achternaam" />
-									@* <ValidationMessage For="() => NieuwePKlantModel.Achternaam" /> *@
-								</div>
-							</div>
-							<div class="row mb-2">
-								<div class="col-3 align-content-center">
-									<h7>E-mailadres</h7>
-								</div>
-								<div class="col-7 align-content-center">
-									<InputText id="email" class="form-control" placeholder="Geef een geldig mailadres in." @bind-Value="@email" />
-									@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
-								</div>
-							</div>
+							<!-- Knop om extra contactpersoon toe te voegen -->
+							<button type="button" class="btn" @onclick="ToggleVisibility">+ Contactpersoon toevoegen</button>
 						}
-
-
-						<!-- Knop om extra contactpersoon toe te voegen -->
-						<button type="button" class="btn btn-primary" @onclick="ToggleVisibility">+ Contactpersoon toevoegen</button>
-
 
 					</div>
 				</div>
@@ -246,35 +342,53 @@
 				<div class="form-group">
 					<label class="mb-4">Indien u extra informatie over de debiteur wilt invoeren kunt u dat hier doen.</label>
 					<textarea class="form-control" rows="15"></textarea>
-					<InputTextArea id="opmerkingen" class="form-control" rows="5" placeholder="Enter ..." @bind-Value="@opmerkingen" />
+					<InputTextArea id="opmerkingen" class="form-control" rows="5" placeholder="Enter ..." @bind-Value="@Klant.InterneNotitie" />
 				</div>
 			</div>
 		</Content>
 	</Tab>	
 </Tabs>
-<div>
-	<button type="submit" class="btn btn-primary float-right">Opslaan</button>
+<div class="d-flex justify-content-end gap-3 flex-wrap flex-md-nowrap align-items-center p-3 pb-2 mb-3">
+	<Button Color="ButtonColor.Danger" Outline="true" Type="ButtonType.Button" @onclick="Annuleer"> Annuleer </Button>
+	<Button Color="ButtonColor.Success" Outline="true" Type="ButtonType.Submit"> Opslaan </Button>
+	@* <button class="btn btn-danger" Outline="true">Annuleren</button>
+	<button type="submit" class="btn btn-success" Outline="true">Opslaan</button> *@
 </div>
-
-
-
+</EditForm>
 
 
 @code {
-	private string? klantnummer = null;
-	private string? aanspreking = null;
-	private string? voornaam = null;
-	private string? achternaam = null;
-	private string? straatnaam = null;
-	private string? huisnummer = null;
-	private string? postcode = null;
-	private string? gemeente = null;
-	private string? land = null;
-	private string? email = null;
-	private string? telefoonnummer = null;
-	private string? gsmnummer = null;
-	private string? opmerkingen = null;
 
+	// [Parameter]
+	// public int Id { get; set; }
+
+	[SupplyParameterFromForm]
+	private ParticuliereKlant Klant { get; set; } = new()
+		{
+			Aanspreking = null,
+			Voornaam = null,
+			Achternaam = null,
+		};
+
+	// protected override async Task OnInitializedAsync()
+	// {
+	// 	Klant = await ParticuliereKlantService.GetAsync(Id);
+	// 	base.OnInitialized();
+	// }
+
+	private async Task Opslaan()
+	{
+		await ParticuliereKlantService.AddAsync(Klant);
+		// Navigation.NavigateTo("/KlantenBeheer/KlantenOverzicht");
+	}
+
+	private void Annuleer()
+	{
+		Navigation.NavigateTo("/");
+	}
+
+
+	// KNOP OM GEDEELTE ZICHTBAAR TE MAKEN
 	private bool isVisible = false;
 
 	private void ToggleVisibility()

@@ -12,8 +12,8 @@ using U7Fact.Data;
 namespace U7Fact.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250208121924_updateRelatie")]
-    partial class updateRelatie
+    [Migration("20250208185743_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
