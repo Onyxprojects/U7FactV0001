@@ -19,4 +19,10 @@
       <ProjectReference Include="..\..\U7Fact.Services\U7Fact.Services.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="Pages\Klantenbeheer\ParticuliereKlantAanmaken.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+    </ItemGroup>
+
 </Project>

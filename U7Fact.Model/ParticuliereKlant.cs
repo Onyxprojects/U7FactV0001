@@ -19,4 +19,5 @@ public class ParticuliereKlant: Relatie
 
     // Bestond reeds na bezoek Tom
     public ICollection<Offerte> Offertes { get; set; }
+    public ICollection<Factuur> Facturen { get; set; } // Hier zullen alle facturen van deze klant in komen
 }

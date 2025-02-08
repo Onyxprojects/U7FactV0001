@@ -8,7 +8,7 @@ public class DbContextFactoryForMigrations: IDesignTimeDbContextFactory<DataCont
     public DataContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-        optionsBuilder.UseSqlServer("Server=localhost;Database=U7Fact;Trusted_Connection=True;Encrypt=False");
+        optionsBuilder.UseSqlServer("Server=localhost;Database=U7Fact2;Trusted_Connection=True;Encrypt=False");
 
         return new DataContext(optionsBuilder.Options);
     }

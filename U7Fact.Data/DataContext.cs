@@ -11,6 +11,7 @@ public class DataContext: DbContext
     public DbSet<ParticuliereKlant> ParticuliereKlanten { get; set; }
     public DbSet<BedrijfsKlant> BedrijfsKlanten { get; set; }
     public DbSet<Offerte> Offertes { get; set; }
+    public DbSet<Factuur> Facturen { get; set; } //Jeroen
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,7 +19,8 @@ public class DataContext: DbContext
         BedrijfsKlantModelConfiguration.AddModelConfigToBuilder(modelBuilder);
         ParticuliereKlantModelConfiguration.AddModelConfigToBuilder(modelBuilder);
         OfferteModelConfiguration.AddModelConfigToBuilder(modelBuilder);
-        
+        FactuurModelConfiguration.AddModelConfigToBuilder(modelBuilder); //Jeroen
+
         base.OnModelCreating(modelBuilder);
     }
 }

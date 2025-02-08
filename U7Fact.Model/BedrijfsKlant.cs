@@ -17,6 +17,7 @@ public class BedrijfsKlant : Relatie
     public string? Achtervoegsel { get; set; } // bv. BV, NV, VOF, ...
 
     // Bestaand veld na bezoek Tom
-    public int BtwTariefId { get; set; }
+    //public int BtwTariefId { get; set; }
     public ICollection<Offerte> Offertes { get; set; }
+    public ICollection<Factuur> Facturen { get; set; } // Hier zullen alle facturen van deze klant in komen
 }
