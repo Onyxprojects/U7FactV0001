@@ -18,6 +18,6 @@ public class ParticuliereKlant: Relatie
     public string? ExtraGsmnummer { get; set; }
 
     // Bestond reeds na bezoek Tom
-    public ICollection<Offerte> Offertes { get; set; }
+    public ICollection<Offerte> Offertes { get; set; } // Dit betekent dat een ParticuliereKlant meerdere Offertes kan hebben (één-op-veel-relatie).
     public ICollection<Factuur> Facturen { get; set; } // Hier zullen alle facturen van deze klant in komen
 }

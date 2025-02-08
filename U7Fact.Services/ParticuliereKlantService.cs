@@ -13,27 +13,27 @@ public class ParticuliereKlantService: IParticuliereKlantService
     {
         _context = context;
     }
-
+    // Alle klantgegevens opvragen
     public Task<List<ParticuliereKlant>> GetAsync()
     {
         return _context.ParticuliereKlanten.ToListAsync();
     }
 
-    // Oude methode voor het ophalen van een klant
+    // Alle klantgegevens opvragen ahv de Id
     public Task<ParticuliereKlant?> GetAsync(int id)
     {
         return _context.ParticuliereKlanten.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    // Nieuwe methode voor het ophalen van een klant met inladen van offertes
-    //public Task<ParticuliereKlant?> GetAsync(int id)
-    //{
-    //    // Offertes worden hier mee ingeladen (IS DIT EEN GOED IDEE OF MOET HIER EEN ANDERE SERVICE VOOR WORDEN GEBRUIKT?)
-    //    return _context.ParticuliereKlanten
-    //        .Include(x => x.Offertes)
-    //        .FirstOrDefaultAsync(x => x.Id == id);
-    //}
+    // Offertes opvragen die aan een bepaalde klant vasthangen
+    public Task<List<Offerte>> GetOffertesVoorKlantAsync(int klantId)
+    {
+        return _context.Offertes
+            .Where(o => o.ParticuliereKlantId == klantId)
+            .ToListAsync();
+    }
 
+    // Klant toevoegen
     public async Task<ParticuliereKlant> AddAsync(ParticuliereKlant particuliereKlant)
     {
         await _context.AddAsync(particuliereKlant);
@@ -41,6 +41,7 @@ public class ParticuliereKlantService: IParticuliereKlantService
         return particuliereKlant; // ✅ Moet klant retourneren
     }
 
+    // Klant updaten
     public async Task<ParticuliereKlant> UpdateAsync(ParticuliereKlant particuliereKlant)
     {
         var dbKlant = await _context.ParticuliereKlanten.FirstOrDefaultAsync(x => x.Id == particuliereKlant.Id);

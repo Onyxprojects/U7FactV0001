@@ -7,48 +7,48 @@ namespace U7Fact.UI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ParticuliereKlantControler : Controller
+public class BedrijfsKlantControler : Controller
 {
-    private readonly IParticuliereKlantService _particuliereKlantenService;
+    private readonly IBedrijfsKlantService _bedrijfsKlantenService;
 
-    public ParticuliereKlantControler(IParticuliereKlantService particuliereKlantenService)
+    public BedrijfsKlantControler(IBedrijfsKlantService bedrijfsKlantenService)
     {
-        _particuliereKlantenService = particuliereKlantenService;
+        _bedrijfsKlantenService = bedrijfsKlantenService;
     }
 
-    // GET api/ParticuliereKlanten
+    // GET api/BedrijfsKlanten
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var klanten = await _particuliereKlantenService.GetAsync();
+        var klanten = await _bedrijfsKlantenService.GetAsync();
         return Ok(klanten);
     }
 
-    // GET api/ParticuliereKlanten/{id}
+    // GET api/BedrijfsKlanten/{id}
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var klant = await _particuliereKlantenService.GetAsync(id);
+        var klant = await _bedrijfsKlantenService.GetAsync(id);
         if (klant == null)
             return NotFound($"Klant met ID {id} niet gevonden.");
 
         return Ok(klant);
     }
     
-    // POST api/ParticuliereKlanten
+    // POST api/BedrijfsKlanten
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] ParticuliereKlant klant)
+    public async Task<IActionResult> Post([FromBody] BedrijfsKlant klant)
     {
         if (klant == null)
             return BadRequest("Klantgegevens zijn verplicht.");
 
-        var nieuweKlant = await _particuliereKlantenService.AddAsync(klant);
+        var nieuweKlant = await _bedrijfsKlantenService.AddAsync(klant);
         return CreatedAtAction(nameof(Get), new { id = nieuweKlant.Id }, nieuweKlant);
     }
 
-    // PUT api/ParticuliereKlanten/{id}
+    // PUT api/BedrijfsKlanten/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, [FromBody] ParticuliereKlant klant)
+    public async Task<IActionResult> Put(int id, [FromBody] BedrijfsKlant klant)
     {
         if (klant == null)
             return BadRequest("Klantgegevens zijn verplicht.");
@@ -56,19 +56,19 @@ public class ParticuliereKlantControler : Controller
         if (id != klant.Id)
             return BadRequest("Id in URL en klant-id komen niet overeen.");
 
-        var updatedKlant = await _particuliereKlantenService.UpdateAsync(klant);
+        var updatedKlant = await _bedrijfsKlantenService.UpdateAsync(klant);
         return Ok(updatedKlant);
     }
 
-    // DELETE api/ParticuliereKlanten/{id}
+    // DELETE api/BedrijfsKlanten/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var bestaandeKlant = await _particuliereKlantenService.GetAsync(id);
+        var bestaandeKlant = await _bedrijfsKlantenService.GetAsync(id);
         if (bestaandeKlant == null)
             return NotFound($"Klant met ID {id} niet gevonden.");
 
-        await _particuliereKlantenService.DeleteAsync(id);
+        await _bedrijfsKlantenService.DeleteAsync(id);
         return NoContent();
     }        
 }

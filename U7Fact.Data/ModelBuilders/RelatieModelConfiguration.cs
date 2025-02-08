@@ -7,6 +7,7 @@ public static class RelatieModelConfiguration
 {
     public static void AddModelConfigToBuilder(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Relatie>().UseTpcMappingStrategy();
+        modelBuilder.Entity<Relatie>()
+            .UseTpcMappingStrategy();
     }
 }

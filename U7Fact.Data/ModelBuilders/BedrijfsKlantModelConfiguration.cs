@@ -7,6 +7,7 @@ public static class BedrijfsKlantModelConfiguration
 {
     public static void AddModelConfigToBuilder(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<BedrijfsKlant>().Property(x => x.BtwNummer).IsRequired();
+        modelBuilder.Entity<BedrijfsKlant>()
+            .Property(x => x.BtwNummer).IsRequired();
     }
 }
