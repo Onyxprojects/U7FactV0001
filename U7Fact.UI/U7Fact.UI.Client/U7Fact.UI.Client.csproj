@@ -23,11 +23,13 @@
       <Content Update="Pages\Klantenbeheer\ParticuliereKlantAanmaken.razor">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>
+      <Content Update="Pages\Offertes\OfferteOverzicht.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Pages\Facturen\" />
-      <Folder Include="Pages\Offertes\" />
     </ItemGroup>
 
 </Project>

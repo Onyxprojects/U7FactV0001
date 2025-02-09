@@ -10,6 +10,7 @@ public class DataContext: DbContext
 
     public DbSet<ParticuliereKlant> ParticuliereKlanten { get; set; }
     public DbSet<BedrijfsKlant> BedrijfsKlanten { get; set; }
+    public DbSet<Klant> Klanten { get; set; }
     public DbSet<Offerte> Offertes { get; set; }
     public DbSet<Factuur> Facturen { get; set; } //Jeroen
 

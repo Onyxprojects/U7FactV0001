@@ -16,6 +16,15 @@ public class BedrijfsKlant : Relatie
     public string? KboNummer { get; set; }
     public string? Achtervoegsel { get; set; } // bv. BV, NV, VOF, ...
 
+    // Indien een extra contactpersoon moet worden toegevoegd, kan dit hier
+    public string? ExtraAanspreking { get; set; }
+    public string? ExtraVoornaam { get; set; }
+    public string? ExtraAchternaam { get; set; }
+    public string? ExtraEmail { get; set; }
+    public string? ExtraTelefoonnummer { get; set; }
+    public string? ExtraGsmnummer { get; set; }
+
+
     // Bestaand veld na bezoek Tom
     //public int BtwTariefId { get; set; }
     public ICollection<Offerte> Offertes { get; set; }
