@@ -16,7 +16,7 @@ public class ParticuliereKlantHttpService: IParticuliereKlantService
     public async Task<List<ParticuliereKlant>> GetAsync()
     {
         var result = await _httpClient.GetFromJsonAsync<List<ParticuliereKlant>>("/api/ParticuliereKlanten");
-        return result ?? [];
+        return result ?? new List<ParticuliereKlant>(); // Zorgt voor een lege lijst als de response null is
     }
 
     public Task<ParticuliereKlant?> GetAsync(int id)
@@ -24,18 +24,41 @@ public class ParticuliereKlantHttpService: IParticuliereKlantService
         return _httpClient.GetFromJsonAsync<ParticuliereKlant>($"/api/ParticuliereKlanten/{id}");
     }
 
-    public Task AddAsync(ParticuliereKlant particuliereKlant)
+    // AddAsync moet een Task<ParticuliereKlant> retourneren zoals gedefinieerd in de interface
+    public async Task<ParticuliereKlant> AddAsync(ParticuliereKlant particuliereKlant)
     {
-        return _httpClient.PostAsJsonAsync("/api/ParticuliereKlanten", particuliereKlant);
+        var response = await _httpClient.PostAsJsonAsync("/api/ParticuliereKlanten", particuliereKlant);
+        if (response.IsSuccessStatusCode)
+        {
+            // De toegevoegde klant wordt teruggegeven
+            return await response.Content.ReadFromJsonAsync<ParticuliereKlant>();
+        }
+        else
+        {
+            throw new Exception("Er is een fout opgetreden bij het toevoegen van de klant.");
+        }
     }
 
-    public Task UpdateAsync(ParticuliereKlant particuliereKlant)
+    public async Task<ParticuliereKlant> UpdateAsync(ParticuliereKlant particuliereKlant)
     {
-        return _httpClient.PutAsJsonAsync("/api/ParticuliereKlanten", particuliereKlant);
+        var response = await _httpClient.PutAsJsonAsync("/api/ParticuliereKlanten", particuliereKlant);
+        if (response.IsSuccessStatusCode)
+        {
+            // De bijgewerkte klant wordt teruggegeven
+            return await response.Content.ReadFromJsonAsync<ParticuliereKlant>();
+        }
+        else
+        {
+            throw new Exception("Er is een fout opgetreden bij het bijwerken van de klant.");
+        }
     }
     // Toevoegen van delete methode
-    public Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        return _httpClient.DeleteAsync($"/api/ParticuliereKlanten/{id}");
+        var response = await _httpClient.DeleteAsync($"/api/ParticuliereKlanten/{id}");
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception("Er is een fout opgetreden bij het verwijderen van de klant.");
+        }
     }
 }
