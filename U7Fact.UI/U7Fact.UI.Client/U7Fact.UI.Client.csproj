@@ -25,4 +25,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Pages\Facturen\" />
+      <Folder Include="Pages\Offertes\" />
+    </ItemGroup>
+
 </Project>
