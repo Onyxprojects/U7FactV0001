@@ -92,6 +92,9 @@
 										<option value="Dhr.">Dhr.</option>
 										<option value="Mevr.">Mevr.</option>
 										<option value="Jufr.">Jufr.</option>
+										<option value="Fam.">Fam.</option>
+										<option value="Meester">Meester</option>
+										<option value="Advocaat">Advocaat</option>
 									</InputSelect>
 									<ValidationMessage For="@(() => Klant.Aanspreking)" />
 								</div>
@@ -249,31 +252,20 @@
 										</div>
 										<div class="col-2 align-content-center">
 											<InputSelect id="aanspreking" class="form-select" @bind-Value="@Klant.ExtraAanspreking">
-												<option value="">
-													Selecteer ...
-												</option>
-												<option checked="@(Klant!.Aanspreking == "Dhr.")"
-														value="Dhr.">
-													Dhr.
-												</option>
-												<option checked="@(Klant!.Aanspreking == "Mevr.")"
-														value="Mevr.">
-													Mevr.
-												</option>
-												<option checked="@(Klant!.Aanspreking == "Jufr.")"
-														value="Jufr.">
-													Jufr.
-												</option>
-											</InputSelect>
-											<ValidationMessage For="@(() => Klant.ExtraAanspreking)" />
+												<option value="">Selecteer ...</option>
+												<option value="Dhr.">Dhr.</option>
+												<option value="Mevr.">Mevr.</option>
+												<option value="Jufr.">Jufr.</option>
+												<option value="Fam.">Fam.</option>
+												<option value="Meester">Meester</option>
+												<option value="Advocaat">Advocaat</option>
+											</InputSelect>											
 										</div>
 										<div class="col-2 align-content-center">
-											<InputText id="voornaam" class="form-control" placeholder="Voornaam" @bind-Value="@Klant.ExtraVoornaam" />
-											@* <ValidationMessage For="() => NieuwePKlantModel.Voornaam" /> *@
+											<InputText id="voornaam" class="form-control" placeholder="Voornaam" @bind-Value="@Klant.ExtraVoornaam" />											
 										</div>
 										<div class="col-3 align-content-center">
-											<InputText id="achternaam" class="form-control" placeholder="Achternaam" @bind-Value="@Klant.ExtraAchternaam" />
-											@* <ValidationMessage For="() => NieuwePKlantModel.Achternaam" /> *@
+											<InputText id="achternaam" class="form-control" placeholder="Achternaam" @bind-Value="@Klant.ExtraAchternaam" />											
 										</div>
 									</div>
 									<!-- Extra email -->
@@ -283,7 +275,7 @@
 										</div>
 										<div class="col-7 align-content-center">
 											<InputText id="email" class="form-control" placeholder="Geef een geldig mailadres in." @bind-Value="@Klant.ExtraEmail" />
-											@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
+											<ValidationMessage For="() => Klant.ExtraEmail" />
 										</div>
 									</div>
 									<!-- Extra gsmnummer -->
@@ -293,7 +285,7 @@
 										</div>
 										<div class="col-7 align-content-center">
 											<InputText id="email" class="form-control" placeholder="Geef een geldig gsmnummer in." @bind-Value="@Klant.ExtraGsmnummer" />
-											@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
+											<ValidationMessage For="() => Klant.ExtraGsmnummer" />
 										</div>
 									</div>
 									<!-- Extra telefoonnummer -->
@@ -303,7 +295,7 @@
 										</div>
 										<div class="col-7 align-content-center">
 											<InputText id="email" class="form-control" placeholder="Geef een geldig telefoonnummer in." @bind-Value="@Klant.ExtraTelefoonnummer" />
-											@* <ValidationMessage For="() => NieuwePKlantModel.Email" /> *@
+											<ValidationMessage For="() => Klant.ExtraTelefoonnummer" />
 										</div>
 									</div>
 								}

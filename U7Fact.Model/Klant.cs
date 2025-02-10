@@ -20,7 +20,7 @@ public class Klant
     public required string Voornaam { get; set; }
     [Required(ErrorMessage = "Achternaam is een verplicht veld")]
     public required string Achternaam { get; set; }
-
+    public string? Aanspreking { get; set; }
     [Required]
     public string? Klantnummer { get; set; }
     [EmailAddress(ErrorMessage = "Voer een geldig e-mailadres in.")]
@@ -43,7 +43,7 @@ public class Klant
     public KlantType KlantType { get; set; }
 
     // Velden voor Particuliere klanten
-    public string? Aanspreking { get; set; }
+    
     public string? ExtraAanspreking { get; set; }
     public string? ExtraVoornaam { get; set; }
     public string? ExtraAchternaam { get; set; }
