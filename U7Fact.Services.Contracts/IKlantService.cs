@@ -9,4 +9,6 @@ public interface IKlantService
     Task<Klant> AddAsync(Klant klant); // ✅ Moet klant retourneren
     Task<Klant> UpdateAsync(Klant klant); // Retourneert de klant
     Task DeleteAsync(int id);
+    public Task<int> GetLaatsteKlantnummer();
+
 }

@@ -8,19 +8,19 @@ public class DataContext: DbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
+    public DbSet<Klant> Klanten { get; set; }
     public DbSet<ParticuliereKlant> ParticuliereKlanten { get; set; }
     public DbSet<BedrijfsKlant> BedrijfsKlanten { get; set; }
-    public DbSet<Klant> Klanten { get; set; }
     public DbSet<Offerte> Offertes { get; set; }
     public DbSet<Factuur> Facturen { get; set; } //Jeroen
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        RelatieModelConfiguration.AddModelConfigToBuilder(modelBuilder);
-        BedrijfsKlantModelConfiguration.AddModelConfigToBuilder(modelBuilder);
-        ParticuliereKlantModelConfiguration.AddModelConfigToBuilder(modelBuilder);
+    {        
         OfferteModelConfiguration.AddModelConfigToBuilder(modelBuilder);
         FactuurModelConfiguration.AddModelConfigToBuilder(modelBuilder); //Jeroen
+        KlantModelConfiguration.AddModelConfigToBuilder(modelBuilder);
+        ParticuliereKlantModelConfiguration.AddModelConfigToBuilder(modelBuilder);
+        BedrijfsKlantModelConfiguration.AddModelConfigToBuilder(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }

@@ -7,22 +7,27 @@ using U7Fact.UI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Voeg server-side Blazor toe
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+// Voeg BlazorBootstrap toe voor server-side
 builder.Services.AddBlazorBootstrap();
 
+// Voeg scoped services voor klantservices toe
 builder.Services.AddScoped<IBedrijfsKlantService, BedrijfsKlantService>();
 builder.Services.AddScoped<IParticuliereKlantService, ParticuliereKlantService>();
-        
+builder.Services.AddScoped<IKlantService, KlantService>();
+
+// Voeg de database context toe      
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.EnableSensitiveDataLogging();
     options.UseSqlServer("Server=localhost;Database=U7Fact;Trusted_Connection=True;Encrypt=False");
 });
 
+// Bouw de app
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

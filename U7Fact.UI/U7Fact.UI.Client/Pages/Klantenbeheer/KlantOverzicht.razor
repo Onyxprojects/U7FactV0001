@@ -1,0 +1,70 @@
+﻿@page "/klantenoverzicht"
+
+@using U7Fact.Model
+@using BlazorBootstrap
+@using U7Fact.Services.Contracts
+@inject IKlantService KlantService;
+@inject IParticuliereKlantService ParticuliereKlantService;
+@inject NavigationManager Navigation
+<!-- Hoofding groot met lijn onderaan -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Klanten overzicht</h1>
+    <div class="btn-toolbar mb-2 mb-md-0 align-items-center">
+        Totaal: 1
+        
+    </div>
+</div>
+
+<!-- balk met knoppen -->
+<div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 gap-2">    
+    <div class="btn-toolbar mb-2 mb-md-0 align-items-center">        
+        <Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">Nieuwe klant</Button>
+    </div>    
+</div>
+
+<!-- Overzicht tabel -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <table class="table table-hover">
+        <caption>Lijst van klanten</caption>
+        <thead>
+            <tr>
+                <td>Klantnummer</td>
+                <td>Voornaam</td>
+                <td>Achternaam</td>
+                <td>Email</td>
+                <td>Gsm-Nummer</td>
+                <td>Openstaand bedrag</td>
+                <td>Acties</td>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var klant in Klanten)
+        {
+            <tr>
+                <td>@klant.Klantnummer</td>
+                <td>@klant.Voornaam</td>
+                <td>@klant.Achternaam</td>
+                <td>@klant.Email</td>
+                <td>@klant.Gsmnummer</td>
+                <td><Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+
+@code {
+    private List<Klant> Klanten { get; set; } = new();
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        Klanten = await KlantService.GetAsync();
+    }
+
+    private void KlantAanpassen(int id)
+    {
+        Navigation.NavigateTo($"klantaanpassen/{id}");
+    }
+}

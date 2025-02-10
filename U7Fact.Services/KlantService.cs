@@ -22,10 +22,13 @@ public class KlantService: IKlantService
     // Alle klantgegevens opvragen ahv de Id
     public Task<Klant?> GetAsync(int id)
     {
-        return _context.Klanten.FirstOrDefaultAsync(x => x.Id == id);
+        return _context.Klanten
+            .Include(k => k.Offertes)
+            .Include(k => k.Facturen)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    // Offertes opvragen die aan een bepaalde klant vasthangen
+    // Offertes opvragen die aan een bepaalde klant vastvrangen
     public Task<List<Offerte>> GetOffertesVoorKlantAsync(int klantId)
     {
         return _context.Offertes
@@ -36,6 +39,13 @@ public class KlantService: IKlantService
     // Klant toevoegen
     public async Task<Klant> AddAsync(Klant klant)
     {
+        // Bepaal het volgende klantnummer
+        int laatsteNummer = await _context.Klanten
+            .OrderByDescending(k => k.Id)
+            .Select(k => (int?)int.Parse(k.Klantnummer!.Substring(2))) // Verwijdert "K-" en zet om naar int
+            .FirstOrDefaultAsync() ?? 10000; // Start vanaf 10000 als er geen klanten zijn
+
+        klant.Klantnummer = $"K-{laatsteNummer + 1}"; // Nieuwe klant krijgt +1
         await _context.AddAsync(klant);
         await _context.SaveChangesAsync();
         return klant; // ✅ Moet klant retourneren
@@ -65,4 +75,27 @@ public class KlantService: IKlantService
             await _context.SaveChangesAsync();
         }
     }
+
+    // Klantnummer genereren
+    public async Task<int> GetLaatsteKlantnummer()
+    {
+        var laatsteKlant = await _context.Klanten
+            .OrderByDescending(k => k.Id)
+            .Select(k => k.Klantnummer)
+            .FirstOrDefaultAsync();
+
+        if (string.IsNullOrEmpty(laatsteKlant))
+        {
+            return 10000; // Start bij 10000 als er nog geen klanten zijn
+        }
+
+        // Haal het numerieke deel op door "K-" te verwijderen
+        if (int.TryParse(laatsteKlant.Substring(2), out int laatsteNummer))
+        {
+            return laatsteNummer;
+        }
+
+        throw new InvalidOperationException("Ongeldig klantnummer formaat in de database.");
+    }
+
 }
