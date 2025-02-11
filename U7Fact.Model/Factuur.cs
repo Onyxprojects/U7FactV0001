@@ -36,6 +36,9 @@ public class Factuur
     public int? ParticuliereKlantId { get; set; }
     public ParticuliereKlant? ParticuliereKlant { get; set; }
 
+    public int? KlantId { get; set; }
+    public Klant? Klant { get; set; }
+
     public int? OfferteId { get; set; }
     public Offerte? Offerte { get; set; }
 }

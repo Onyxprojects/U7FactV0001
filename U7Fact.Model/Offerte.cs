@@ -24,4 +24,6 @@ public class Offerte
     public BedrijfsKlant? BedrijfsKlant { get; set; }
     public int? ParticuliereKlantId { get; set; }
     public ParticuliereKlant? ParticuliereKlant { get; set; }
+    public int? KlantId { get; set; }
+    public Klant? Klant { get; set; }
 }

@@ -4,14 +4,14 @@
 @using BlazorBootstrap
 @using U7Fact.Services.Contracts
 @inject IKlantService KlantService;
-@inject IParticuliereKlantService ParticuliereKlantService;
 @inject NavigationManager Navigation
+
+
 <!-- Hoofding groot met lijn onderaan -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Klanten overzicht</h1>
     <div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-        Totaal: 1
-        
+        Totaal: 1        
     </div>
 </div>
 
@@ -44,14 +44,31 @@
                 <td>@klant.Klantnummer</td>
                 <td>@klant.Voornaam</td>
                 <td>@klant.Achternaam</td>
-                <td>@klant.Email</td>
+                <td>@klant.Email</td><td>Geen</td>
                 <td>@klant.Gsmnummer</td>
+                <td>Geen openstaand bedrag</td>
                 <td><Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 </div>
+
+<QuickGrid Class="table table-striped m-0"
+    Items="@Klanten.AsQueryable()"
+    ItemKey="@(x => x.Id)">
+            <PropertyColumn Title="Klantnummer" Property="@(x => x.Klantnummer)" Sortable="true"/>
+            <PropertyColumn Title="Voornaam" Property="@(x => x.Voornaam)" Sortable="true" />
+            <PropertyColumn Title="Achternaam" Property="@(x => x.Achternaam)" />
+            <PropertyColumn Title="Gsmnummer" Property="@(x => x.Gsmnummer)" Sortable="true" />
+            <PropertyColumn Title="Email" Property="@(x => x.Email)" Sortable="true" />
+            <TemplateColumn>                
+                <div class="btn-group btn-group-sm">
+                    
+                </div>
+            </TemplateColumn>
+</QuickGrid>
+
 
 
 @code {

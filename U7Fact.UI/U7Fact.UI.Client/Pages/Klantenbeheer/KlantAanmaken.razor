@@ -6,22 +6,20 @@
 @inject IKlantService KlantService;
 @inject NavigationManager Navigation
 
-
-
-<!-- Hoofding groot met lijn onderaan -->
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-	<h1 class="h2">Klant aanmaken</h1>
-	<div class="btn-toolbar mb-2 mb-md-0">
-		<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-			K10001
-		</button>
-	</div>
-</div>
-
 <!-- Tabbladen klant aanmaken -->
 <EditForm Model="Klant" OnValidSubmit="Opslaan">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
+	<!-- Hoofding groot met lijn onderaan -->
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Klant aanmaken</h1>
+		<div class="btn-toolbar mb-2 mb-md-0">
+			<button type="button" class="btn btn-sm btn-outline-secondary">
+				@Klant.Klantnummer
+			</button>
+		</div>
+	</div>
+
 	<Tabs EnableFadeEffect="true">
 		<Tab Active="true">
 			<TitleTemplate>
@@ -357,9 +355,7 @@
 	</Tabs>
 	<div class="d-flex justify-content-end gap-3 flex-wrap flex-md-nowrap align-items-center p-3 pb-2 mb-3">
 		<Button Color="ButtonColor.Danger" Outline="true" Type="ButtonType.Button" @onclick="Annuleer"> Annuleer </Button>
-		<Button Color="ButtonColor.Success" Outline="true" Type="ButtonType.Submit"> Opslaan </Button>
-		@* <button class="btn btn-danger" Outline="true">Annuleren</button>
-	<button type="submit" class="btn btn-success" Outline="true">Opslaan</button> *@
+		<Button Color="ButtonColor.Success" Outline="true" Type="ButtonType.Submit"> Opslaan </Button>		
 	</div>
 </EditForm>
 
@@ -388,15 +384,6 @@
 		return $"K-{laatsteNummer + 1}";
 	}
 
-	// private void CheckKlantType(ChangeEventArgs e)
-	// {
-	// 	if (string.IsNullOrWhiteSpace(Klant.Bedrijfsnaam))
-	// 	{
-	// 		Klant.BtwNummer = null;
-	// 		Klant.KboNummer = null;
-	// 	}
-	// }
-
 	private void ControleerBedrijf(ChangeEventArgs e)
 	{
 		var bedrijfsnaam = e.Value?.ToString();
@@ -413,12 +400,12 @@
 	private async Task Opslaan()
 	{
 		await KlantService.AddAsync(Klant);
-		// Navigation.NavigateTo("/KlantenBeheer/KlantenOverzicht");
+		Navigation.NavigateTo("/klantenoverzicht");
 	}
 
 	private void Annuleer()
 	{
-		Navigation.NavigateTo("/");
+		Navigation.NavigateTo("/klantenoverzicht");
 	}
 
 

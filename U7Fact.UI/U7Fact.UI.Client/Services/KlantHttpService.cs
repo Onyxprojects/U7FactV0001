@@ -17,12 +17,30 @@ public class KlantHttpService: IKlantService
     public async Task<List<Klant>> GetAsync()
     {
         var result = await _httpClient.GetFromJsonAsync<List<Klant>>("/api/Klanten");
-        return result ?? new List<Klant>(); // Zorgt voor een lege lijst als de response null is
+        if (result == null)
+        {
+            Console.WriteLine("Geen klanten opgehaald.");
+        }
+        else
+        {
+            Console.WriteLine($"{result.Count} klanten opgehaald.");
+        }
+        return result ?? new List<Klant>();
     }
 
-    public Task<Klant?> GetAsync(int id)
+    public async Task<Klant?> GetAsync(int id)
     {
-        return _httpClient.GetFromJsonAsync<Klant>($"/api/Klanten/{id}");
+        try
+        {
+            var klant = await _httpClient.GetFromJsonAsync<Klant>($"/api/Klanten/{id}");
+            return klant;
+        }
+        catch (Exception ex)
+        {
+            // Log de fout of handel de fout op een andere manier af
+            Console.WriteLine($"Er is een fout opgetreden bij het ophalen van de klant: {ex.Message}");
+            return null;
+        }
     }
 
     // AddAsync moet een Task<Klant> retourneren zoals gedefinieerd in de interface

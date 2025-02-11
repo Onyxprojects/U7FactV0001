@@ -16,7 +16,9 @@ public class KlantService: IKlantService
     // Alle klantgegevens opvragen
     public Task<List<Klant>> GetAsync()
     {
-        return _context.Klanten.ToListAsync();
+        var klanten = _context.Klanten.ToListAsync();
+        Console.WriteLine($"Aantal klanten opgehaald: {klanten.Result.Count}");  // Log het aantal klanten
+        return klanten;
     }
 
     // Alle klantgegevens opvragen ahv de Id
