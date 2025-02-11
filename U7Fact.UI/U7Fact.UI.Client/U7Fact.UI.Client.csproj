@@ -21,9 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="Pages\Klantenbeheer\ParticuliereKlantAanmaken.razor">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      </Content>
       <Content Update="Pages\Offertes\OfferteOverzicht.razor">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>

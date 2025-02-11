@@ -3,7 +3,7 @@
 @using U7Fact.Model
 @using BlazorBootstrap
 @using U7Fact.Services.Contracts
-@inject IParticuliereKlantService ParticuliereKlantService
+@inject IKlantService KlantService
 @inject NavigationManager Navigation
 
 
@@ -13,27 +13,27 @@
 <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 gap-2">
 	<!-- Particulier -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("particuliereklantaanmaken"))">+ particulier</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ particulier</Button>
 	</div>
 	<!-- Bedrijf -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("particuliereklantaanmaken"))">+ bedrijf</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ bedrijf</Button>
 	</div>
 	<!-- Leverancier -->
 	<div class="btn-toolbar mb-2 mb-md-0 pr-2 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("particuliereklantaanmaken"))">+ Leverancier</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ Leverancier</Button>
 	</div>
 	<!-- Offerte -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("particuliereklantaanmaken"))">+ offerte</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ offerte</Button>
 	</div>
 	<!-- Factuur -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("particuliereklantaanmaken"))">+ uit-factuur</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ uit-factuur</Button>
 	</div>
 	<!-- Aankoopfactuur -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("particuliereklantaanmaken"))">+ in-factuur</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ in-factuur</Button>
 	</div>
 </div>
 
@@ -67,7 +67,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach (var klant in particuliereKlanten)
+        @foreach (var klant in Klanten)
         {
             <tr>
                 <td>@klant.Klantnummer</td>
@@ -75,7 +75,7 @@
                 <td>@klant.Achternaam</td>
                 <td>@klant.Email</td>
                 <td>@klant.Gsmnummer</td>
-                <td><Button Color="ButtonColor.Light" @onclick="@(() => ParticuliereKlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
+                    <td><Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
             </tr>
         }
         </tbody>
@@ -87,15 +87,15 @@
 @code {
 
 
-    private List<ParticuliereKlant> particuliereKlanten { get; set; } = new();    
+    private List<Klant> Klanten { get; set; } = new();    
 
     protected override async Task OnInitializedAsync()
     {
-        particuliereKlanten = await ParticuliereKlantService.GetAsync();
+        Klanten = await KlantService.GetAsync();
     }
 
-    private void ParticuliereKlantAanpassen(int id)
+    private void KlantAanpassen(int id)
     {
-        Navigation.NavigateTo($"ParticuliereKlantAanpassen/{id}");
+        Navigation.NavigateTo($"klantaanpassen/{id}");
     }
 }

@@ -8,14 +8,10 @@ public static class FactuurModelConfiguration
     public static void AddModelConfigToBuilder(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Factuur>()
-            .HasOne(x => x.ParticuliereKlant)
+            .HasOne(x => x.Klant)
             .WithMany(x => x.Facturen)
-            .HasForeignKey(x => x.ParticuliereKlantId)
+            .HasForeignKey(x => x.KlantId)
             .OnDelete(DeleteBehavior.SetNull);
-        modelBuilder.Entity<Factuur>()
-            .HasOne(x => x.BedrijfsKlant)
-            .WithMany(x => x.Facturen)
-            .HasForeignKey(x => x.BedrijfsKlantId)
-            .OnDelete(DeleteBehavior.SetNull);
+        
     }
 }

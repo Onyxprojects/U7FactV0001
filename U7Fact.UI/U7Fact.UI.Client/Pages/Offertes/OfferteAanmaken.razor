@@ -3,7 +3,7 @@
 @using U7Fact.Model
 @using BlazorBootstrap
 @using U7Fact.Services.Contracts
-@inject IParticuliereKlantService ParticuliereKlantService
+@inject IKlantService KlantService
 @inject IOfferteService OfferteService
 @inject NavigationManager Navigation
 
@@ -395,7 +395,7 @@
 	public int Id { get; set; }
 
 	[SupplyParameterFromForm]
-	private ParticuliereKlant Klant { get; set; } = new()
+	private Klant Klant { get; set; } = new()
 		{
 			Aanspreking = null,
 			Voornaam = null,
@@ -441,12 +441,12 @@
 
 	private void Nieuweklant()
 	{
-		Navigation.NavigateTo("/particuliereklantaanmaken");
+		Navigation.NavigateTo("/klantaanmaken");
 	}
 
 	private void NieuweBklant()
 	{
-		Navigation.NavigateTo("/bedrijfsklantaanmaken");
+		Navigation.NavigateTo("/bklantaanmaken");
 	}
 
 	// KNOP OM GEDEELTE ZICHTBAAR TE MAKEN

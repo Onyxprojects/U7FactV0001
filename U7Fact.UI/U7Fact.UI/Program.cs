@@ -16,8 +16,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddBlazorBootstrap();
 
 // Voeg scoped services voor klantservices toe
-builder.Services.AddScoped<IBedrijfsKlantService, BedrijfsKlantService>();
-builder.Services.AddScoped<IParticuliereKlantService, ParticuliereKlantService>();
+
 builder.Services.AddScoped<IKlantService, KlantService>();
 
 // Voeg de database context toe      

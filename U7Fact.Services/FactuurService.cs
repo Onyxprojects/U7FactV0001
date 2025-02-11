@@ -35,7 +35,7 @@ public class FactuurService: IFactuurService
     // Factuur toevoegen
     public async Task<Factuur> AddAsync(Factuur factuur)
     {
-        if (factuur.ParticuliereKlantId == null && factuur.BedrijfsKlantId == null)
+        if (factuur.KlantId == null)
         {
             throw new ArgumentException("Een factuur moet aan een particuliere klant of een bedrijfsklant gekoppeld zijn.");
         }

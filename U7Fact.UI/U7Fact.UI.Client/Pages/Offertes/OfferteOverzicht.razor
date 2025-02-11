@@ -3,7 +3,7 @@
 @using U7Fact.Model
 @using BlazorBootstrap
 @using U7Fact.Services.Contracts
-@inject IParticuliereKlantService ParticuliereKlantService;
+@inject IKlantService KlantService;
 @inject IOfferteService OfferteService
 @inject NavigationManager Navigation
 
@@ -20,7 +20,7 @@
 <!-- balk met knoppen -->
 <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 gap-2">    
     <div class="btn-toolbar mb-2 mb-md-0 align-items-center">        
-        <Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("particuliereklantaanmaken"))">Nieuwe klant</Button>
+        <Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">Nieuwe klant</Button>
     </div>    
 </div>
 
@@ -57,16 +57,16 @@
 
 
 @code {
-    private List<ParticuliereKlant> ParticuliereKlanten { get; set; } = new();
+    private List<Klant> ParticuliereKlanten { get; set; } = new();
     
 
     protected override async Task OnInitializedAsync()
     {
-        ParticuliereKlanten = await ParticuliereKlantService.GetAsync();
+        ParticuliereKlanten = await KlantService.GetAsync();
     }
 
     private void ParticuliereKlantAanpassen(int id)
     {
-        Navigation.NavigateTo($"ParticuliereKlantAanpassen/{id}");
+        Navigation.NavigateTo($"klantaanpassen/{id}");
     }
 }

@@ -3,7 +3,7 @@
 @using U7Fact.Model
 @using BlazorBootstrap
 @using U7Fact.Services.Contracts
-@inject IParticuliereKlantService ParticuliereKlantService
+@inject IKlantService KlantService
 @inject IOfferteService OfferteService
 @inject NavigationManager Navigation
 
@@ -360,7 +360,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    [SupplyParameterFromForm] private ParticuliereKlant Klant { get; set; } = new()
+    [SupplyParameterFromForm] private Klant Klant { get; set; } = new()
     {
         Aanspreking = null,
         Voornaam = null,

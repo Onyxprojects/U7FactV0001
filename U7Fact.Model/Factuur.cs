@@ -29,13 +29,7 @@ public class Factuur
     
 
     // Code Tom (navigation properties)
-
-    public int? BedrijfsKlantId { get; set; }
-    public BedrijfsKlant? BedrijfsKlant { get; set; }
-
-    public int? ParticuliereKlantId { get; set; }
-    public ParticuliereKlant? ParticuliereKlant { get; set; }
-
+            
     public int? KlantId { get; set; }
     public Klant? Klant { get; set; }
 

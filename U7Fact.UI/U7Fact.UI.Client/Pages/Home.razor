@@ -3,7 +3,7 @@
 @using U7Fact.Model
 @using BlazorBootstrap
 @using U7Fact.Services.Contracts
-@inject IParticuliereKlantService ParticuliereKlantService
+@inject IKlantService KlantService
 @inject NavigationManager Navigation
 
 
@@ -363,7 +363,7 @@
 	// public int Id { get; set; }
 
 	[SupplyParameterFromForm]
-	private ParticuliereKlant Klant { get; set; } = new()
+	private Klant Klant { get; set; } = new()
 		{
 			Aanspreking = null,
 			Voornaam = null,
@@ -378,7 +378,7 @@
 
 	private async Task Opslaan()
 	{
-		await ParticuliereKlantService.AddAsync(Klant);
+		await KlantService.AddAsync(Klant);
 		// Navigation.NavigateTo("/KlantenBeheer/KlantenOverzicht");
 	}
 

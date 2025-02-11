@@ -8,11 +8,12 @@ namespace U7Fact.UI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class KlantControler : Controller
+public class KlantController : Controller
 {
+    
     private readonly IKlantService _klantenService;
 
-    public KlantControler(IKlantService klantenService)
+    public KlantController(IKlantService klantenService)
     {
         _klantenService = klantenService;
     }

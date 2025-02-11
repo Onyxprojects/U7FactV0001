@@ -34,7 +34,7 @@ public class KlantService: IKlantService
     public Task<List<Offerte>> GetOffertesVoorKlantAsync(int klantId)
     {
         return _context.Offertes
-            .Where(o => o.ParticuliereKlantId == klantId)
+            .Where(o => o.KlantId == klantId)
             .ToListAsync();
     }
 
