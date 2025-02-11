@@ -23,52 +23,38 @@
 </div>
 
 <!-- Overzicht tabel -->
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <table class="table table-hover">
-        <caption>Lijst van klanten</caption>
-        <thead>
-            <tr>
-                <td>Klantnummer</td>
-                <td>Voornaam</td>
-                <td>Achternaam</td>
-                <td>Email</td>
-                <td>Gsm-Nummer</td>
-                <td>Openstaand bedrag</td>
-                <td>Acties</td>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var klant in Klanten)
-        {
-            <tr>
-                <td>@klant.Klantnummer</td>
-                <td>@klant.Voornaam</td>
-                <td>@klant.Achternaam</td>
-                <td>@klant.Email</td><td>Geen</td>
-                <td>@klant.Gsmnummer</td>
-                <td>Geen openstaand bedrag</td>
-                <td><Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
 
-<QuickGrid Class="table table-striped m-0"
-    Items="@Klanten.AsQueryable()"
-    ItemKey="@(x => x.Id)">
-            <PropertyColumn Title="Klantnummer" Property="@(x => x.Klantnummer)" Sortable="true"/>
-            <PropertyColumn Title="Voornaam" Property="@(x => x.Voornaam)" Sortable="true" />
-            <PropertyColumn Title="Achternaam" Property="@(x => x.Achternaam)" />
-            <PropertyColumn Title="Gsmnummer" Property="@(x => x.Gsmnummer)" Sortable="true" />
-            <PropertyColumn Title="Email" Property="@(x => x.Email)" Sortable="true" />
-            <TemplateColumn>                
-                <div class="btn-group btn-group-sm">
-                    
-                </div>
-            </TemplateColumn>
-</QuickGrid>
 
+<Grid TItem="Klant"
+      Class="table table-hover table-bordered"
+      Style="--bb-table-selected-row-color: #fff;--bb-table-selected-row-background-color: #4c0bce;--bb-table-selected-row-hover-color: #fff;--bb-table-selected-row-hover-background-color: #4c0bce;"
+      DataProvider="KlantenDataProvider"
+      AllowPaging="true"
+      PageSize="10"
+      AllowSorting="true"
+      Responsive="true">
+
+    <GridColumns>
+        <GridColumn TItem="Klant" HeaderText="Klantnr." PropertyName="Klantnummer" SortKeySelector="item => item.Klantnummer">
+            <Button Color="ButtonColor.Link" @onclick="@(() => KlantBekijken(context.Id))">
+                @context.Klantnummer
+            </Button>
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Naam" PropertyName="Naam" SortKeySelector="item => item.Achternaam">            
+                @context.Achternaam, @context.Voornaam            
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Email-adres" PropertyName="Email">
+            @context.Email
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Gsmnummer" PropertyName="Gsmnummer">
+            @context.Gsmnummer
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Openstaand bedrag" PropertyName="Openstaand bedrag">
+            € 0,00
+        </GridColumn>
+    </GridColumns>
+
+</Grid>
 
 
 @code {
@@ -80,8 +66,21 @@
         Klanten = await KlantService.GetAsync();
     }
 
+    private async Task<GridDataProviderResult<Klant>> KlantenDataProvider(GridDataProviderRequest<Klant> request)
+    {
+        if (Klanten is null || !Klanten.Any()) // pull employees only one time for client-side filtering, sorting, and paging
+            return await Task.FromResult(new GridDataProviderResult<Klant> { Data = new List<Klant>(), TotalCount = 0 });
+
+        return await Task.FromResult(request.ApplyTo(Klanten));
+    }
+
     private void KlantAanpassen(int id)
     {
         Navigation.NavigateTo($"klantaanpassen/{id}");
+    }
+
+    private void KlantBekijken(int id)
+    {
+        Navigation.NavigateTo($"klantbekijken/{id}");
     }
 }

@@ -6,35 +6,75 @@
 @inject IKlantService KlantService
 @inject NavigationManager Navigation
 
-
 <PageTitle>U7Fact - Offerte- en factucturatie - Web App (.NET 9)</PageTitle>
 
-<!-- balk met knoppen alles-->
-<div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 gap-2">
-	<!-- Particulier -->
-	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ particulier</Button>
-	</div>
-	<!-- Bedrijf -->
-	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ bedrijf</Button>
-	</div>
-	<!-- Leverancier -->
-	<div class="btn-toolbar mb-2 mb-md-0 pr-2 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ Leverancier</Button>
-	</div>
-	<!-- Offerte -->
-	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ offerte</Button>
-	</div>
-	<!-- Factuur -->
-	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ uit-factuur</Button>
-	</div>
-	<!-- Aankoopfactuur -->
-	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ in-factuur</Button>
-	</div>
+<!-- KNOPPEN -->
+<div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 gap-3">    
+    <!--KLANT-->
+    <a href="#" class="text-decoration-none" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">
+        <Card Class="mb-4 text-center shadow-sm border" Style="width: 115px; height: 100px;">
+            <img class="rounded-top mx-auto d-block" src="/img/klant.png" alt="Klant"
+                 style="width: 110px; height: 100px; object-fit: contain; margin-bottom: -35px;" />
+
+            <CardBody Class="p-2">
+                <p class="m-0 p-0" style="font-size: 12px; color: black;">
+                    Nieuwe Klant
+                </p>
+            </CardBody>
+        </Card>
+    </a>
+    <!--OFFERTE-->
+    <a href="#" class="text-decoration-none" @onclick="@(() => Navigation.NavigateTo("offerteaanmaken"))">
+        <Card Class="mb-4 text-center shadow-sm border" Style="width: 115px; height: 100px;">
+            <img class="rounded-top mx-auto d-block" src="/img/offerte.png" alt="offerte"
+                 style="width: 110px; height: 100px; object-fit: contain; margin-bottom: -35px;" />
+
+            <CardBody Class="p-2">
+                <p class="m-0 p-0" style="font-size: 12px; color: black;">
+                    Nieuwe offerte
+                </p>
+            </CardBody>
+        </Card>
+    </a>
+    <!--Factuur-->
+    <a href="#" class="text-decoration-none">
+        <Card Class="mb-4 text-center shadow-sm border" Style="width: 115px; height: 100px;">
+            <img class="rounded-top mx-auto d-block" src="/img/verkoopfactuur.png" alt="factuur"
+                 style="width: 110px; height: 100px; object-fit: contain; margin-bottom: -35px;" />
+
+            <CardBody Class="p-2">
+                <p class="m-0 p-0" style="font-size: 12px; color: black;">
+                    Nieuwe factuur
+                </p>
+            </CardBody>
+        </Card>
+    </a>
+    <!--Leverancier-->
+    <a href="#" class="text-decoration-none">
+        <Card Class="mb-4 text-center shadow-sm border" Style="width: 115px; height: 100px;">
+            <img class="rounded-top mx-auto d-block" src="/img/leverancier.png" alt="leverancier"
+                 style="width: 110px; height: 100px; object-fit: contain; margin-bottom: -45px;" />
+
+            <CardBody Class="p-2">
+                <p class="m-0 p-0" style="font-size: 12px; color: black;">
+                    Nieuwe leverancier
+                </p>
+            </CardBody>
+        </Card>
+    </a>
+    <!--Inkoopfactuur-->
+    <a href="#" class="text-decoration-none">
+        <Card Class="mb-4 text-center shadow-sm border" Style="width: 115px; height: 100px;">
+            <img class="rounded-top mx-auto d-block" src="/img/inkoopfactuur.png" alt="inkoopfactuur"
+                 style="width: 110px; height: 100px; object-fit: contain; margin-bottom: -45px;" />
+
+            <CardBody Class="p-2">
+                <p class="m-0 p-0" style="font-size: 12px; color: black;">
+                    Nieuw aankoopfactuur
+                </p>
+            </CardBody>
+        </Card>
+    </a>
 </div>
 
 <!-- warnings -->
@@ -45,57 +85,70 @@
 
 <!-- Subhoofding groot -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-	<h1 class="h2">Openstaande facturen (0)</h1>
+	<h4 class="h4">Openstaande facturen (0)</h4>
 	<div class="btn-toolbar mb-2 mb-md-0">
 		Totaal: € 400,00 excl. BTW / € 454,00 incl. BTW <!-- aan te passen naar lijst -->				
 	</div>
 </div>
 
 <!-- Overzicht tabel -->
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <table class="table table-hover">
-        <caption>Lijst van klanten</caption>
-        <thead>
-            <tr>
-                <td>Klantnummer</td>
-                <td>Voornaam</td>
-                <td>Achternaam</td>
-                <td>Email</td>
-                <td>Gsm-Nummer</td>
-                <td>Openstaand bedrag</td>
-                <td>Acties</td>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var klant in Klanten)
-        {
-            <tr>
-                <td>@klant.Klantnummer</td>
-                <td>@klant.Voornaam</td>
-                <td>@klant.Achternaam</td>
-                <td>@klant.Email</td>
-                <td>@klant.Gsmnummer</td>
-                    <td><Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
+<Grid TItem="Klant"
+      Class="table table-hover table-bordered"
+      Style="--bb-table-selected-row-color: #fff;--bb-table-selected-row-background-color: #4c0bce;--bb-table-selected-row-hover-color: #fff;--bb-table-selected-row-hover-background-color: #4c0bce;"
+      DataProvider="KlantenDataProvider"
+      AllowPaging="true"
+      PageSize="10"
+      AllowSorting="true"
+      Responsive="true">
+
+    <GridColumns>
+        <GridColumn TItem="Klant" HeaderText="Klantnr." PropertyName="Klantnummer" SortKeySelector="item => item.Klantnummer">
+            <Button Color="ButtonColor.Link" @onclick="@(() => KlantBekijken(context.Id))">
+                @context.Klantnummer
+            </Button>
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Naam" PropertyName="Naam" SortKeySelector="item => item.Achternaam">
+            @context.Achternaam, @context.Voornaam
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Email-adres" PropertyName="Email">
+            @context.Email
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Gsmnummer" PropertyName="Gsmnummer">
+            @context.Gsmnummer
+        </GridColumn>
+        <GridColumn TItem="Klant" HeaderText="Openstaand bedrag" PropertyName="Openstaand bedrag">
+            € 0,00
+        </GridColumn>
+    </GridColumns>
+
+</Grid>
 
 
 
 @code {
+    private List<Klant> Klanten { get; set; } = new();
 
-
-    private List<Klant> Klanten { get; set; } = new();    
 
     protected override async Task OnInitializedAsync()
     {
         Klanten = await KlantService.GetAsync();
     }
 
+    private async Task<GridDataProviderResult<Klant>> KlantenDataProvider(GridDataProviderRequest<Klant> request)
+    {
+        if (Klanten is null || !Klanten.Any()) // pull employees only one time for client-side filtering, sorting, and paging
+            return await Task.FromResult(new GridDataProviderResult<Klant> { Data = new List<Klant>(), TotalCount = 0 });
+
+        return await Task.FromResult(request.ApplyTo(Klanten));
+    }
+
     private void KlantAanpassen(int id)
     {
         Navigation.NavigateTo($"klantaanpassen/{id}");
+    }
+
+    private void KlantBekijken(int id)
+    {
+        Navigation.NavigateTo($"klantbekijken/{id}");
     }
 }
