@@ -15,8 +15,8 @@ builder.Services.AddRazorComponents()
 // Voeg BlazorBootstrap toe voor server-side
 builder.Services.AddBlazorBootstrap();
 
+builder.Services.AddControllers();
 // Voeg scoped services voor klantservices toe
-
 builder.Services.AddScoped<IKlantService, KlantService>();
 
 // Voeg de database context toe      
@@ -51,5 +51,5 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(U7Fact.UI.Client._Imports).Assembly);
-
+app.MapControllers();
 app.Run();

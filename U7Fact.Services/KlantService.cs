@@ -14,26 +14,26 @@ public class KlantService: IKlantService
         _context = context;
     }
     // Alle klantgegevens opvragen
-    public Task<List<Klant>> GetAsync()
+    public async Task<List<Klant>> GetAsync()
     {
-        var klanten = _context.Klanten.ToListAsync();
-        Console.WriteLine($"Aantal klanten opgehaald: {klanten.Result.Count}");  // Log het aantal klanten
+        var klanten = await _context.Klanten.ToListAsync();
+        Console.WriteLine($"Aantal klanten opgehaald: {klanten.Count}");  // Log het aantal klanten
         return klanten;
     }
 
     // Alle klantgegevens opvragen ahv de Id
-    public Task<Klant?> GetAsync(int id)
+    public async Task<Klant?> GetAsync(int id)
     {
-        return _context.Klanten
+        return await _context.Klanten
             .Include(k => k.Offertes)
             .Include(k => k.Facturen)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     // Offertes opvragen die aan een bepaalde klant vastvrangen
-    public Task<List<Offerte>> GetOffertesVoorKlantAsync(int klantId)
+    public async Task<List<Offerte>> GetOffertesVoorKlantAsync(int klantId)
     {
-        return _context.Offertes
+        return await _context.Offertes
             .Where(o => o.KlantId == klantId)
             .ToListAsync();
     }
