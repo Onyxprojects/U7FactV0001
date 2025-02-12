@@ -44,7 +44,7 @@
                 <td>@klant.Klantnummer</td>
                 <td>@klant.Voornaam</td>
                 <td>@klant.Achternaam</td>
-                <td>@klant.Email</td><td>Geen</td>
+                <td>@klant.Email</td>
                 <td>@klant.Gsmnummer</td>
                 <td>Geen openstaand bedrag</td>
                 <td><Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
@@ -64,7 +64,8 @@
             <PropertyColumn Title="Email" Property="@(x => x.Email)" Sortable="true" />
             <TemplateColumn>                
                 <div class="btn-group btn-group-sm">
-                    
+                    @* Je kan hier @context gebruiken voor variabelen uit je current element te gebruiken *@
+                    <Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@context.Id))"><Icon Name="IconName.Pencil"/></Button>
                 </div>
             </TemplateColumn>
 </QuickGrid>

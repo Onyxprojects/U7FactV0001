@@ -7,95 +7,165 @@
 @inject NavigationManager Navigation
 
 
-<PageTitle>U7Fact - Offerte- en factucturatie - Web App (.NET 9)</PageTitle>
+<PageTitle>
+	U7Fact
+	-
+	Offerte-
+	en
+	factucturatie
+	-
+	Web
+	App
+	(.NET
+	9)
+</PageTitle>
 
 <!-- balk met knoppen alles-->
 <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 gap-2">
 	<!-- Particulier -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ particulier</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">
+			+
+			particulier
+		</Button>
 	</div>
 	<!-- Bedrijf -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ bedrijf</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">
+			+
+			bedrijf
+		</Button>
 	</div>
 	<!-- Leverancier -->
 	<div class="btn-toolbar mb-2 mb-md-0 pr-2 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ Leverancier</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">
+			+
+			Leverancier
+		</Button>
 	</div>
 	<!-- Offerte -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ offerte</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">
+			+
+			offerte
+		</Button>
 	</div>
 	<!-- Factuur -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ uit-factuur</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">
+			+
+			uit-factuur
+		</Button>
 	</div>
 	<!-- Aankoopfactuur -->
 	<div class="btn-toolbar mb-2 mb-md-0 align-items-center">
-		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">+ in-factuur</Button>
+		<Button Color="ButtonColor.Primary" @onclick="@(() => Navigation.NavigateTo("klantaanmaken"))">
+			+
+			in-factuur
+		</Button>
 	</div>
 </div>
 
 <!-- warnings -->
 
 <Alert Color="AlertColor.Danger" Dismissable="true">
-	De afzender "onyx-projects.be" kan niet worden gevalideerd. Uw e-mails worden nog via de standaard U7Fact methode verstuurd. <a href="#" class="alert-link">klik hier voor de instellingen. </a>
+	De
+	afzender
+	"onyx-projects.be"
+	kan
+	niet
+	worden
+	gevalideerd.
+	Uw
+	e-mails
+	worden
+	nog
+	via
+	de
+	standaard
+	U7Fact
+	methode
+	verstuurd.
+	<a href="#" class="alert-link">klik
+		hier
+		voor
+		de
+		instellingen. </a>
 </Alert>
 
 <!-- Subhoofding groot -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-	<h1 class="h2">Openstaande facturen (0)</h1>
+	<h1 class="h2">
+		Openstaande
+		facturen
+		(0)</h1>
 	<div class="btn-toolbar mb-2 mb-md-0">
-		Totaal: € 400,00 excl. BTW / € 454,00 incl. BTW <!-- aan te passen naar lijst -->				
+		Totaal:
+		€
+		400,00
+		excl.
+		BTW
+		/
+		€
+		454,00
+		incl.
+		BTW
+		<!-- aan te passen naar lijst -->
 	</div>
 </div>
 
 <!-- Overzicht tabel -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <table class="table table-hover">
-        <caption>Lijst van klanten</caption>
-        <thead>
-            <tr>
-                <td>Klantnummer</td>
-                <td>Voornaam</td>
-                <td>Achternaam</td>
-                <td>Email</td>
-                <td>Gsm-Nummer</td>
-                <td>Openstaand bedrag</td>
-                <td>Acties</td>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var klant in Klanten)
-        {
-            <tr>
-                <td>@klant.Klantnummer</td>
-                <td>@klant.Voornaam</td>
-                <td>@klant.Achternaam</td>
-                <td>@klant.Email</td>
-                <td>@klant.Gsmnummer</td>
-                    <td><Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))"><Icon Name="IconName.Pencil" /></Button></td>
-            </tr>
-        }
-        </tbody>
-    </table>
+	<table class="table table-hover">
+		<caption>
+			Lijst
+			van
+			klanten
+		</caption>
+		<thead>
+		<tr>
+			<td>Klantnummer</td>
+			<td>Voornaam</td>
+			<td>Achternaam</td>
+			<td>Email</td>
+			<td>Gsm-Nummer</td>
+			<td>Openstaand bedrag</td>
+			<td>Acties</td>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var klant in Klanten)
+		{
+			<tr>
+				<td>@klant.Klantnummer</td>
+				<td>@klant.Voornaam</td>
+				<td>@klant.Achternaam</td>
+				<td>@klant.Email</td>
+				<td>@klant.Gsmnummer</td>
+				<td>Openstaand bedrag toevoegen</td>
+				<td>
+					<Button Color="ButtonColor.Light" @onclick="@(() => KlantAanpassen(@klant.Id))">
+						<Icon Name="IconName.Pencil"/>
+					</Button>
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
 </div>
 
 
 
 @code {
+	private List<Klant> Klanten { get; set; } = new();
 
+	protected override async Task OnInitializedAsync()
+	{
+		Klanten = await KlantService.GetAsync();
+	}
 
-    private List<Klant> Klanten { get; set; } = new();    
-
-    protected override async Task OnInitializedAsync()
-    {
-        Klanten = await KlantService.GetAsync();
-    }
-
-    private void KlantAanpassen(int id)
-    {
-        Navigation.NavigateTo($"klantaanpassen/{id}");
-    }
+	private void KlantAanpassen(int id)
+	{
+		Navigation.NavigateTo($"klantaanpassen/{id}");
+	}
 }
